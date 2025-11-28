@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Colorful Login Page</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-1: #ff7a7a;
+      --bg-2: #ffd36e;
+      --card: rgba(255,255,255,0.85);
+      --glass: rgba(255,255,255,0.12);
+      --muted: #6b7280;
+      --accent: #6d28d9;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --shadow: 0 10px 30px rgba(16,24,40,0.12);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      background: linear-gradient(135deg,var(--bg-1) 10%, var(--bg-2) 90%);
+      display:flex;align-items:center;justify-content:center;
+      padding:40px; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{
+      width:100%;max-width:980px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;
+    }
+
+    /* left promo */
+    .promo{
+      color:white;padding:40px;border-radius:20px;position:relative;overflow:hidden;min-height:420px;
+      box-shadow:var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .promo h1{margin:0 0 12px;font-size:36px;line-height:1.02;font-weight:800;letter-spacing:-0.02em}
+    .promo p{margin:0 0 22px;color:rgba(255,255,255,0.9);font-weight:500}
+
+    .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .feature{display:flex;gap:12px;align-items:center}
+    .feature .dot{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.08);font-weight:700}
+    .feature strong{display:block}
+    .feature span{display:block;color:rgba(255,255,255,0.88);font-size:13px}
+
+    /* decorative blobs */
+    .blob{position:absolute;border-radius:50%;filter:blur(36px);opacity:0.45}
+    .blob.one{width:260px;height:260px;right:-60px;top:-60px;background:rgba(255,255,255,0.25)}
+    .blob.two{width:180px;height:180px;left:-40px;bottom:-40px;background:rgba(0,0,0,0.08)}
+
+    /* card */
+    .card{
+      background:var(--card);backdrop-filter: blur(6px); border-radius:16px;padding:26px;box-shadow:var(--shadow);
+      border: 1px solid rgba(13,18,29,0.06);
+    }
+    .card h2{margin:0 0 8px;font-size:20px}
+    .card p.sub{margin:0 0 18px;color:var(--muted);font-size:13px}
+
+    form{display:grid;gap:12px}
+    .input{
+      display:flex;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:linear-gradient(180deg,#fff,#fafafa);
+    }
+    .input input{flex:1;border:0;outline:0;font-size:15px;background:transparent}
+    .input .icon{margin-right:10px;opacity:0.75}
+
+    .row{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .checkbox{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);color:white;box-shadow:0 8px 20px rgba(99,102,241,0.18);
+    }
+
+    .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+    .social{display:flex;gap:8px;align-items:center;justify-content:center;padding:8px;border-radius:10px;border:1px solid rgba(13,18,29,0.06);background:var(--glass);cursor:pointer}
+
+    .muted-link{color:var(--muted);font-size:13px;text-decoration:none}
+
+    .footer-note{margin-top:12px;font-size:12px;color:var(--muted)}
+
+    /* tiny validation */
+    .error{color:var(--danger);font-size:13px}
+    .success{color:var(--success);font-size:13px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .container{grid-template-columns:1fr;}
+      .promo{order:2}
+    }
+
+    /* small animation */
+    .logo{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));font-weight:800}
+    .spark{display:inline-block;width:8px;height:8px;border-radius:50%;background:white;margin-left:8px;box-shadow:0 2px 8px rgba(255,255,255,0.6);animation:float 2s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="promo">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <div class="logo">SkyAuth <span class="spark"></span></div>
+        <div style="margin-left:auto;font-size:13px;opacity:0.95">New • Secure • Fast</div>
+      </div>
+
+      <h1>Sign in to continue</h1>
+      <p>Access your dashboard, manage your projects and collaborate with your team — all in one secure place.</p>
+
+      <div class="feature-list">
+        <div class="feature"><div class="dot">⚡</div><div><strong>Fast login</strong><span>Lightning fast authentication</span></div></div>
+        <div class="feature"><div class="dot">🔒</div><div><strong>Secure</strong><span>2FA-ready & encrypted</span></div></div>
+        <div class="feature"><div class="dot">🌈</div><div><strong>Themeable</strong><span>Easily customizable UI</span></div></div>
+        <div class="feature"><div class="dot">🤝</div><div><strong>Team-first</strong><span>Invite & manage users</span></div></div>
+      </div>
+
+      <div class="blob one" aria-hidden></div>
+      <div class="blob two" aria-hidden></div>
+    </section>
+
+    <aside class="card" aria-label="login form">
+      <h2>Welcome back</h2>
+      <p class="sub">Enter your credentials to access your account</p>
+
+      <form id="loginForm" novalidate>
+        <label class="input" for="email">
+          <span class="icon">📧</span>
+          <input id="email" name="email" type="email" placeholder="Email address" required aria-required="true">
+        </label>
+        <label class="input" for="password">
+          <span class="icon">🔑</span>
+          <input id="password" name="password" type="password" placeholder="Password" required aria-required="true" minlength="6">
+          <button type="button" id="togglePwd" aria-label="Show password" style="background:none;border:0;cursor:pointer;font-size:14px;margin-left:8px">Show</button>
+        </label>
+
+        <div class="row">
+          <label class="checkbox"><input type="checkbox" id="remember"> Remember me</label>
+          <a class="muted-link" href="#">Forgot password?</a>
+        </div>
+
+        <div id="feedback" role="status" aria-live="polite"></div>
+
+        <button class="btn" type="submit">Sign in</button>
+
+        <div style="text-align:center;margin-top:10px;color:var(--muted);font-size:13px">or continue with</div>
+        <div class="socials">
+          <div class="social" role="button" tabindex="0">🔵 Google</div>
+          <div class="social" role="button" tabindex="0">🔺 GitHub</div>
+          <div class="social" role="button" tabindex="0">🐦 Twitter</div>
+        </div>
+
+        <p class="footer-note">Don't have an account? <a href="#">Create one</a></p>
+      </form>
+    </aside>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const feedback = document.getElementById('feedback');
+    const toggle = document.getElementById('togglePwd');
+    const pwd = document.getElementById('password');
+
+    toggle.addEventListener('click', ()=>{
+      if(pwd.type === 'password') { pwd.type = 'text'; toggle.textContent = 'Hide'; toggle.setAttribute('aria-label','Hide password') }
+      else { pwd.type = 'password'; toggle.textContent = 'Show'; toggle.setAttribute('aria-label','Show password') }
+    });
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      feedback.textContent = '';
+
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      // simple validation
+      if(!email){ showError('Please enter your email address'); return }
+      if(!validateEmail(email)){ showError('Please enter a valid email'); return }
+      if(password.length < 6){ showError('Password must be at least 6 characters'); return }
+
+      // fake login animation
+      feedback.innerHTML = '<span class="success">Signing in…</span>';
+      setTimeout(()=>{
+        // pretend login success
+        feedback.innerHTML = '<span class="success">Welcome back! Redirecting…</span>';
+        // in real app: submit to server or use fetch
+      }, 900);
+    });
+
+    function showError(msg){ feedback.innerHTML = '<span class="error">' + escapeHtml(msg) + '</span>'; }
+    function validateEmail(email){ return /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(email) }
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]) }
+
+    // small accessibility: allow social buttons keyboard activation
+    document.querySelectorAll('.social').forEach(el=>{
+      el.addEventListener('keypress', (e)=>{ if(e.key === 'Enter' || e.key === ' ') alert('Third-party login is not configured in this demo') });
+      el.addEventListener('click', ()=> alert('Third-party login is not configured in this demo'));
+    });
+  </script>
+</body>
+</html>
